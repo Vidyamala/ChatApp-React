@@ -1,0 +1,15 @@
+.ChatWindow-container{
+    display: flex;
+    border: 1px solid red;
+}
+.ChatWindow-Header{
+    display: flex;
+    border: 1px solid green;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+.ChatWindow-Header i{
+    cursor: pointer;
+}
