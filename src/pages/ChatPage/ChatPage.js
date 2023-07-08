@@ -12,6 +12,9 @@ function Chatpage() {
     const [isCreateGrpmodalopened, setIsCreateGrpmodalopened]=useState(false);
     const navigate = useNavigate();
     const [isImageClicked, setIsImageClicked] = useState(false);
+    const handleUserModal = () => {
+        setIsModalActive(!isModalActive)
+    }
     const handleMyProfile = () => {
         setIsImageClicked(!isImageClicked);
         console.log("in profile")
@@ -31,9 +34,7 @@ function Chatpage() {
         setShow(!show)
     }
     const [isModalActive, setIsModalActive] = useState(false)
-    const handleUserModal = () => {
-        setIsModalActive(!isModalActive)
-    }
+
     const [width, height] = useWindowSize();
     console.log(width, height);
     console.log(isUserSelected)
@@ -44,7 +45,8 @@ function Chatpage() {
         handleIsUserSelected: handleIsUserSelected,
         handleHide: handleHide,
         isCreateGrpmodalopened:isCreateGrpmodalopened,
-        setIsCreateGrpmodalopened:setIsCreateGrpmodalopened
+        setIsCreateGrpmodalopened:setIsCreateGrpmodalopened,
+        handleUserModal:handleUserModal
     }
     return (
         <chatContext.Provider value={val}>
@@ -65,7 +67,7 @@ function Chatpage() {
                         </ul> : ""}
                     </div>
                 </div>
-                <UserSearchModal isModalActive={isModalActive} setIsModalActive={setIsModalActive} handleUserModal={handleUserModal} />
+                <UserSearchModal isModalActive={isModalActive} setIsModalActive={setIsModalActive} />
                 <Modalcomp title={"User Profile"} show={show} setShow={setShow} handleHide={handleHide} pic={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRCIq1WFIqckI69eGZ67ugLdfxchy96eLR7w&usqp=CAU"} email={"vidyamalavpm@gmail.com"} />
                 <div className="chat-page-main-container">
                     <div className={isUserSelected && width < 900 ? "chat-page-chatname notactive" : "chat-page-chatname"}><MyChat /></div>

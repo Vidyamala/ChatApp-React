@@ -1,23 +1,29 @@
+import { useContext } from "react";
+import { searchedUser } from "../UserSearchModal/UserSearchModal";
 import "./ModalUserRender.css"
-import { userData } from "../../DummyData/userData";
+
+// import { userData } from "../../DummyData/userData";
 function ModalUserRender() {
+    const {searchedUsers,isgoclicked,setIsgoClicked,query,loading}=useContext(searchedUser);
+    console.log(searchedUsers,"userData")
     return (
         <div className="User-render-container">
-          {
-            userData.map((data)=>{
+          { searchedUsers.length>0 &&
+            searchedUsers.map((data)=>{
                 return(
                     <div className="User-render">
                     <div className="User-render-img">
-                        <img src={data.pic}></img>
+                        <img src={data.profilePic}></img>
                     </div>
                     <div className="User-render-description">
-                        <p className="User-render-description-name">{data.name}</p>
+                        <p className="User-render-description-name">{data.userId}</p>
                         <p>{data.email}</p>
                     </div>
                 </div>
                 )
-            })
+            }) 
           }
+          {!loading &&query && isgoclicked && searchedUsers.length==0 && <p className="text-center text-danger mx-10">No Match Found</p>}
         </div>
     )
 }

@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# git remote add origin https://github.com/Vidyamala/ChatApp-React.git
+# git branch -M main
+# git push -u origin main

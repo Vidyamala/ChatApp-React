@@ -80,6 +80,12 @@
 .auth-form input:focus{
     outline: none;
 }
+.login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media only screen and (max-width: 900px) {
    .auth-container{
      width: 75%;
