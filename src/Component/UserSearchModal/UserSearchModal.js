@@ -41,7 +41,7 @@ setIsgoClicked(true)
                 setQuery("");
                 setSearchedUsers([])
             }
-        const value={searchedUsers,isgoclicked,setIsgoClicked,query,loading}
+        const value={searchedUsers,isgoclicked,setIsgoClicked,query,loading,handleusermodalclose,setLoading}
     return <div className="user-modal-container">
         <div className={isModalActive?"user-modal active":"user-modal"}>
 <div className="user-mpdal-header-container">

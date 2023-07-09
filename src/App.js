@@ -7,8 +7,14 @@ import Chatpage from './pages/ChatPage/ChatPage';
 import NoPage from './pages/NoPage/Nopage';
 import UserSearchModal from './Component/UserSearchModal/UserSearchModal';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { createContext, useState } from 'react';
+export const appcontext=createContext();
 function App() {
+  const [loggedUser,setLoggedUser]=useState([]);
   return (
+    <appcontext.Provider value={{loggedUser,setLoggedUser}}>
+
+
     <BrowserRouter>
     <Routes>
         <Route path="/" element={<Auth />} />
@@ -17,6 +23,7 @@ function App() {
         <Route path='/*' element={<NoPage />} />
     </Routes>
   </BrowserRouter>
+  </appcontext.Provider>
   );
 }
 export default App;

@@ -38,3 +38,20 @@ export const getUsers=async(query)=>{
         return {"Error":e.message};
         }
 }
+export const getUserById=async (id)=>{
+    console.log(id,localStorage.getItem("token"))
+    let axiosConfig = {
+        headers: {
+           token:localStorage.getItem("token")
+        }
+      };
+    try{
+        const res=await axios.get(`http://localhost:8000/chatapp/api/v1/getUserById/${id}`,  
+        axiosConfig);
+        return res.data;
+        return "hi"
+    }
+    catch(e){
+        return {"Error":e.message};
+        }
+}

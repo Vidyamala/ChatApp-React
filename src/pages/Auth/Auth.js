@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Auth.css"
 import { useNavigate } from "react-router-dom";
 import { login, signup } from "../../API Call/Auth";
 import ClipLoader from "react-spinners/ClipLoader";
+import { appcontext } from "../../App";
 function Auth() {
     const [userDetails, setUserDetails] = useState({ userId: "", password: "", email: "", profilePic: "" });
     //userId,password,email,profilePic
+    const {setLoggedUser,loggedUser}=useContext(appcontext)
     const [loading,setLoading]=useState(false);
     const [error, setError] = useState("")
     const [isLogin, setIsLogin] = useState(true);
@@ -35,6 +37,7 @@ function Auth() {
             setLoading(false)
             console.log(res.Error, "res")
             if (res.token) {
+                setLoggedUser(res);
                 localStorage.setItem("token",res.token);
                 localStorage.setItem("id",res.user._id)
                 setUserDetails({ userId: "", password: "", email: "", profilePic: "" });

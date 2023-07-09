@@ -2,16 +2,33 @@ import { userData } from "../../DummyData/userData";
 import "./RenderMyChat.css"
 import { chatContext } from "../../pages/ChatPage/ChatPage";
 import { useContext } from "react";
+import { accessChat } from "../../API Call/Chat";
 function RenderMyChat() {
-    var {setIsUserSelected}=useContext(chatContext);
+    var {setIsUserSelected,fetchedUser,loggedUser,setSelectedChat,selectedChat,selectedUser,setSelectedUser}=useContext(chatContext);
+    console.log(fetchedUser,"fetchedUser");
+    const getUsers=(users)=>{
+       
+       const filteredUser= users.filter((user)=>{
+            return user._id!=loggedUser._id
+        })
+        return filteredUser;
+    }
+    const handleclick=async(data)=>{
+        setIsUserSelected(true);
+        setSelectedChat(data);
+       if(!data.isGroupChat) {
+        setSelectedUser(getUsers(data.users)[0]);
+       }
+    }
     return (
         <div className="MyChat-render-container">
             {
-                userData.map((data) => {
+                fetchedUser.map((data) => {
                     return (
-                        <div onClick={()=>{setIsUserSelected(true)}} className="MyChat-chats">
-                            <p className="">{data.name}</p>
-                            <p>{data.email}</p>
+                        <div onClick={()=>handleclick(data)} className="MyChat-chats">
+                            {data.isGroupChat && <p>{data.chatName}</p>}
+                            {!data.isGroupChat && <p>{getUsers(data.users)[0].userId}</p>}
+                           {data.latestMessage && <div style={{fontSize:"0.98rem"}}> <span>{data.latestMessage.sender.userId}</span>:  <span>{ data.latestMessage.content}</span></div> } 
                         </div>
                     )
                 })

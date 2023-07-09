@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import UserSearchModal from "../../Component/UserSearchModal/UserSearchModal";
 import "./ChatPage.css"
 import useWindowSize from "../../customHooks/useWindowSize";
@@ -7,8 +7,32 @@ import MyChat from "../../Component/MyChat/MyChat"
 import ChatWindow from "../../Component/ChatWindow/ChatWindow";
 import { useNavigate } from "react-router-dom";
 import CreateGrpChatModal from "../../Component/CreateGrpChatModal/CreateGrpChatModal";
+import { appcontext } from "../../App";
+import { getUserById } from "../../API Call/Auth";
+import { fetchChatofUser } from "../../API Call/Chat";
 export const chatContext = createContext();
 function Chatpage() {
+    const [selectedChat,setSelectedChat]=useState([]);
+    const [selectedUser,setSelectedUser]=useState([]);
+    const [fetchedUser,setFetchedUser]=useState([]);
+    const [ismychatLoading,setIsmyChatLoading]=useState(false);
+    const [showselectedProfile,setSelectedProfile]=useState(false);
+    const handleShowSelectedProfile=()=>{
+        setSelectedProfile(!showselectedProfile);
+    }
+    const {loggedUser,setLoggedUser}=useContext(appcontext);
+    console.log("loggedUser",loggedUser);
+   const getuser= async()=>{
+    setIsmyChatLoading(true);
+        const res= await getUserById(localStorage.getItem("id"));
+         setLoggedUser(res[0])
+        }
+        const getChatsofUser=async()=>{
+            const res=await fetchChatofUser();
+            console.log(res,"ress")
+            setFetchedUser(res);
+        }
+  
     const [isCreateGrpmodalopened, setIsCreateGrpmodalopened]=useState(false);
     const navigate = useNavigate();
     const [isImageClicked, setIsImageClicked] = useState(false);
@@ -38,6 +62,13 @@ function Chatpage() {
     const [width, height] = useWindowSize();
     console.log(width, height);
     console.log(isUserSelected)
+    useEffect(()=>{
+        
+        getuser();
+        getChatsofUser();
+        setIsmyChatLoading(false)
+
+    },[isModalActive])
     const val = {
         isModalActive: isModalActive,
         isUserSelected: isUserSelected,
@@ -46,7 +77,18 @@ function Chatpage() {
         handleHide: handleHide,
         isCreateGrpmodalopened:isCreateGrpmodalopened,
         setIsCreateGrpmodalopened:setIsCreateGrpmodalopened,
-        handleUserModal:handleUserModal
+        handleUserModal:handleUserModal,
+        loggedUser:loggedUser,
+        setLoggedUser:setLoggedUser,
+        fetchedUser:fetchedUser,
+        setFetchedUser:setFetchedUser,
+        setSelectedChat:setSelectedChat,
+        selectedChat:selectedChat,
+        selectedUser:selectedUser,
+        setSelectedUser:setSelectedUser,
+        handleShowSelectedProfile:handleShowSelectedProfile,
+        setIsmyChatLoading:setIsmyChatLoading,
+        ismychatLoading:ismychatLoading
     }
     return (
         <chatContext.Provider value={val}>
@@ -60,7 +102,7 @@ function Chatpage() {
                 <option value="myprofile" >My profile</option>
                 <option value="logout">Log out</option>
             </select> */}
-                        <img onClick={() => { setIsImageClicked(!isImageClicked) }} src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRCIq1WFIqckI69eGZ67ugLdfxchy96eLR7w&usqp=CAU"} />
+                        <img onClick={() => { setIsImageClicked(!isImageClicked) }} src={loggedUser.profilePic} />
                         {isImageClicked ? <ul className="chat-header-menu-list">
                             <li onClick={handleMyProfile}>My profile</li>
                             <li onClick={handleLogout}>Log out</li>
@@ -68,7 +110,8 @@ function Chatpage() {
                     </div>
                 </div>
                 <UserSearchModal isModalActive={isModalActive} setIsModalActive={setIsModalActive} />
-                <Modalcomp title={"User Profile"} show={show} setShow={setShow} handleHide={handleHide} pic={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRCIq1WFIqckI69eGZ67ugLdfxchy96eLR7w&usqp=CAU"} email={"vidyamalavpm@gmail.com"} />
+                <Modalcomp title={loggedUser.userId} show={show} setShow={setShow} handleHide={handleHide} pic={loggedUser.profilePic} email={loggedUser.email} />
+                <Modalcomp title={selectedUser.userId} show={showselectedProfile} handleHide={handleShowSelectedProfile} setSelectedProfile={setSelectedProfile} pic={selectedUser.profilePic} email={selectedUser.email} />
                 <div className="chat-page-main-container">
                     <div className={isUserSelected && width < 900 ? "chat-page-chatname notactive" : "chat-page-chatname"}><MyChat /></div>
                     <div className={!isUserSelected && width < 900 ? "chat-page-chatWindow notactive" : "chat-page-chatWindow"}><ChatWindow /></div>

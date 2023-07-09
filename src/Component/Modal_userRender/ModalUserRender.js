@@ -1,17 +1,26 @@
 import { useContext } from "react";
+import { accessChat } from "../../API Call/Chat";
 import { searchedUser } from "../UserSearchModal/UserSearchModal";
 import "./ModalUserRender.css"
 
 // import { userData } from "../../DummyData/userData";
 function ModalUserRender() {
-    const {searchedUsers,isgoclicked,setIsgoClicked,query,loading}=useContext(searchedUser);
-    console.log(searchedUsers,"userData")
+    const {searchedUsers,isgoclicked,setIsgoClicked,query,loading,handleusermodalclose,setLoading}=useContext(searchedUser);
+    console.log(searchedUsers,"userData");
+    const handleClick=async(data)=>{
+        setLoading(true);
+       const res= await accessChat(data._id);
+       console.log(res,"resss");
+       handleusermodalclose();
+       setLoading(false)
+
+    }
     return (
         <div className="User-render-container">
           { searchedUsers.length>0 &&
             searchedUsers.map((data)=>{
                 return(
-                    <div className="User-render">
+                    <div className="User-render" onClick={()=>handleClick(data)} >
                     <div className="User-render-img">
                         <img src={data.profilePic}></img>
                     </div>
