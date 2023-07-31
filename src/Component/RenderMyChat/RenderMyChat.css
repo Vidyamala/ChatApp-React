@@ -2,6 +2,7 @@
 .MyChat-render-container{
     display: flex;
     flex-direction: column;
+    cursor: context-menu;
 }
 .MyChat-chats{
     border: 1px solid grey;
@@ -16,6 +17,7 @@
 .MyChat-chats p{
     margin: 0;
     font-family: 'Poppins', sans-serif;
+    
 }
 
 

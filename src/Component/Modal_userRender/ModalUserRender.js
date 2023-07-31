@@ -26,13 +26,13 @@ function ModalUserRender() {
                     </div>
                     <div className="User-render-description">
                         <p className="User-render-description-name">{data.userId}</p>
-                        <p>{data.email}</p>
+                        <p>{data.email.length<=20?data.email:`${data.email.slice(0,20)}...` }</p>
                     </div>
                 </div>
                 )
             }) 
           }
-          {!loading &&query && isgoclicked && searchedUsers.length==0 && <p className="text-center text-danger mx-10">No Match Found</p>}
+          {!loading &&query && isgoclicked && searchedUsers.length==0 && <p className="text-center notfoundtext mx-10">No Match Found</p>}
         </div>
     )
 }

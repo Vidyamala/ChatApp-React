@@ -5,6 +5,10 @@
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.05rem;
 }
+.notfoundtext{
+    color: brown;
+    font-size: 1rem;
+}
 .User-render{
     display: flex;
     align-items: center;

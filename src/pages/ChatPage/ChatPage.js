@@ -12,7 +12,9 @@ import { getUserById } from "../../API Call/Auth";
 import { fetchChatofUser } from "../../API Call/Chat";
 export const chatContext = createContext();
 function Chatpage() {
-    const [selectedChat,setSelectedChat]=useState([]);
+    const [messageLoading,setMessageLoading]=useState(true)
+    const [messages,setMessages]=useState([]);
+    const [selectedChat,setSelectedChat]=useState(null);
     const [selectedUser,setSelectedUser]=useState([]);
     const [fetchedUser,setFetchedUser]=useState([]);
     const [ismychatLoading,setIsmyChatLoading]=useState(false);
@@ -70,6 +72,10 @@ function Chatpage() {
 
     },[isModalActive])
     const val = {
+        setMessageLoading:setMessageLoading,
+        messageLoading:messageLoading,
+        messages:messages,
+        setMessages:setMessages,
         isModalActive: isModalActive,
         isUserSelected: isUserSelected,
         setIsUserSelected: setIsUserSelected,

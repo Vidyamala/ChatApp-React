@@ -5,7 +5,7 @@
     border: 1px solid rgb(61, 52, 1);
     justify-content: space-between;
     align-items: center;
-    height: 10vh;
+    height: 8vh;
     padding: 0 1.5rem;
     background-image: linear-gradient(to right, #C33764 ,#1D2671);
 }
@@ -32,7 +32,7 @@
 }
 .chat-page-main-container{
     display: flex;
-    height: 90vh;
+    height: 92vh;
 }
 .chat-page-chatname{
     width: 25%;

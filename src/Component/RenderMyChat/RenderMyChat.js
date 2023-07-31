@@ -1,10 +1,11 @@
+
 import { userData } from "../../DummyData/userData";
 import "./RenderMyChat.css"
 import { chatContext } from "../../pages/ChatPage/ChatPage";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { accessChat } from "../../API Call/Chat";
 function RenderMyChat() {
-    var {setIsUserSelected,fetchedUser,loggedUser,setSelectedChat,selectedChat,selectedUser,setSelectedUser}=useContext(chatContext);
+    var {setIsUserSelected,fetchedUser,loggedUser,setSelectedChat,selectedChat,selectedUser,setSelectedUser,messageLoading,setMessageLoading,setMessages}=useContext(chatContext);
     console.log(fetchedUser,"fetchedUser");
     const getUsers=(users)=>{
        
@@ -14,12 +15,18 @@ function RenderMyChat() {
         return filteredUser;
     }
     const handleclick=async(data)=>{
+      
         setIsUserSelected(true);
         setSelectedChat(data);
        if(!data.isGroupChat) {
         setSelectedUser(getUsers(data.users)[0]);
        }
+       console.log(messageLoading,"messageLoading")
     }
+    useEffect(()=>{
+        setMessageLoading(true)
+      setMessages([])
+    },[selectedChat])
     return (
         <div className="MyChat-render-container">
             {
