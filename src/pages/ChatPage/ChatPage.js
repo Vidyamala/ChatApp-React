@@ -12,6 +12,9 @@ import { getUserById } from "../../API Call/Auth";
 import { fetchChatofUser } from "../../API Call/Chat";
 export const chatContext = createContext();
 function Chatpage() {
+    
+  const [selectedPersons,setSelectedPersons]=useState([]);
+    const [searcheduser,setSearcheduser]=useState("");
     const [messageLoading,setMessageLoading]=useState(true)
     const [messages,setMessages]=useState([]);
     const [selectedChat,setSelectedChat]=useState(null);
@@ -94,7 +97,11 @@ function Chatpage() {
         setSelectedUser:setSelectedUser,
         handleShowSelectedProfile:handleShowSelectedProfile,
         setIsmyChatLoading:setIsmyChatLoading,
-        ismychatLoading:ismychatLoading
+        ismychatLoading:ismychatLoading,
+        selectedPersons:selectedPersons,
+        setSelectedPersons:setSelectedPersons,
+        searcheduser:searcheduser,
+        setSearcheduser:setSearcheduser
     }
     return (
         <chatContext.Provider value={val}>

@@ -4,7 +4,7 @@ function Badges({ setSelectedPersons, selectedPersons }) {
     const removePerson=(item)=>{
         console.log("hello")
       const newselected=  selectedPersons.filter((i)=>{
-           return i!=item
+           return i.userId!=item
         })
         setSelectedPersons(newselected)
     }
@@ -12,8 +12,8 @@ function Badges({ setSelectedPersons, selectedPersons }) {
         <div className="badge-container">
             {selectedPersons.map((item) => {
                 return <div className="badges">
-                    <div>{item}</div>
-                    <div className={"close"} onClick={()=>{removePerson(item)}}> <i class="bi bi-x"></i></div>
+                    <div>{item.userId}</div>
+                    <div className={"close"} onClick={()=>{removePerson(item.userId)}}> <i class="bi bi-x"></i></div>
                 </div>
             })}
         </div>

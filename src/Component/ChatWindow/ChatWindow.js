@@ -40,8 +40,8 @@ function ChatWindow(){
 
   <div className="selecteduserDetails">
   {width<900? <i class="bi bi-arrow-left-circle fa-2x" onClick={()=>{setIsUserSelected(false)}}></i>:""}
-  <img className="profilepic" src={selectedUser.profilePic}></img>
-       <h4>{selectedChat.chatName=="sender"? selectedUser.userId:selectedChat.chatName}</h4>
+ {(!selectedChat.isGroupChat) && <img className="profilepic" src={selectedUser.profilePic}></img>}
+       <h4 className="mx-2">{selectedChat.chatName=="sender"? selectedUser.userId:selectedChat.chatName}</h4>
   </div>
        <i onClick={handleShowSelectedProfile} class="bi bi-eye-fill fa-2x"></i>
    </div>

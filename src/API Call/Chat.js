@@ -13,3 +13,10 @@ export const accessChat=async(id)=>{
     console.log(res.data,"accesschatof user")
     return res.data;
 }
+export const createGrp=async(payload)=>{
+    const res=await axios.post("http://localhost:8000/chatapp/api/v1/createGroupchat",payload,{headers:{
+        "token":localStorage.getItem("token")
+    }})
+    console.log(res.data,"Group chat created")
+    return res.data;
+}
