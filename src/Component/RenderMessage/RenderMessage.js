@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { chatContext } from "../../pages/ChatPage/ChatPage";
 import { fetchMessagesOfChat } from "../../API Call/Message";
 import {appcontext} from "../../App"
+import {socket,selectedChatCompare} from "../ChatWindow/ChatWindow"
 function RenderMessage() {
     const {loggedUser,setLoggedUser}=useContext(appcontext);
     const {selectedChat,messages,setMessages,messageLoading,setMessageLoading}=useContext(chatContext);
@@ -18,8 +19,11 @@ function RenderMessage() {
         setMessageLoading(false)
        } 
     }
+   
+   
     useEffect(()=>{
        fetchmes();
+       console.log(messages,"messages")
     },[selectedChat])
   
     return (
@@ -39,11 +43,7 @@ function RenderMessage() {
                         <p className={(data.sender._id===loggedUser._id)? "message-render-description-name isloggedusername":"message-render-description-name"}>{data.sender.userId}</p>
                        <p className={(data.sender._id===loggedUser._id)? "message-render-content isloggedusermsg":"message-render-content"}>{data.content}</p>
                     </div>
-                    {(data.sender._id===loggedUser._id) &&
-                    <div style={{marginLeft:"10px"}} className="message-render-img">
-                    <img src={data.sender.profilePic}></img>
-                </div>
-                   }
+                   
                 </div>
                 )
             

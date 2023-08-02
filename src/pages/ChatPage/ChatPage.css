@@ -50,7 +50,9 @@
     border-radius: 50%;
     border: 1px solid rgb(155, 155, 155);
     cursor: pointer;
+    position: relative;
 }
+
 .chat-header-menu-list{
     list-style: none;
     position: absolute;

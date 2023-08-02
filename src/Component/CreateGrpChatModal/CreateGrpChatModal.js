@@ -12,7 +12,7 @@ function CreateGrpChatModal(props){
     const [error,setError]=useState("")
    
  
-   var {setIsCreateGrpmodalopened,isCreateGrpmodalopened,searcheduser,selectedPersons,setSelectedPersons,setSearcheduser}=useContext(chatContext);
+   var {setIsCreateGrpmodalopened,setFetchedUser,fetchedUser,isCreateGrpmodalopened,searcheduser,selectedPersons,setSelectedPersons,setSearcheduser}=useContext(chatContext);
    const handleInputChange=(e)=>{
         setChatname(e.target.value);
    }
@@ -52,7 +52,8 @@ function CreateGrpChatModal(props){
         users:selectedPersonsId
     }
     const res=await createGrp(payload);
-
+    setFetchedUser([...res,...fetchedUser])
+    handlegrpchatmodal()
    }
     return(
         <Modal show={isCreateGrpmodalopened} onHide={()=>{handlegrpchatmodal()}} backdrop="static" centered scrollable>

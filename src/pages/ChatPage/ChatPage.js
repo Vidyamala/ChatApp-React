@@ -115,7 +115,7 @@ function Chatpage() {
                 <option value="myprofile" >My profile</option>
                 <option value="logout">Log out</option>
             </select> */}
-                        <img onClick={() => { setIsImageClicked(!isImageClicked) }} src={loggedUser.profilePic} />
+                        <img className="profileimg" onClick={() => { setIsImageClicked(!isImageClicked) }} src={loggedUser.profilePic} />
                         {isImageClicked ? <ul className="chat-header-menu-list">
                             <li onClick={handleMyProfile}>My profile</li>
                             <li onClick={handleLogout}>Log out</li>

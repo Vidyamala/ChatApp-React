@@ -4,6 +4,7 @@ import "./RenderMyChat.css"
 import { chatContext } from "../../pages/ChatPage/ChatPage";
 import { useContext, useEffect } from "react";
 import { accessChat } from "../../API Call/Chat";
+import {socket} from "../ChatWindow/ChatWindow"
 function RenderMyChat() {
     var {setIsUserSelected,fetchedUser,loggedUser,setSelectedChat,selectedChat,selectedUser,setSelectedUser,messageLoading,setMessageLoading,setMessages}=useContext(chatContext);
     console.log(fetchedUser,"fetchedUser");
@@ -25,7 +26,9 @@ function RenderMyChat() {
     }
     useEffect(()=>{
         setMessageLoading(true)
+        console.log(selectedChat,"chatssssss")
       setMessages([])
+   selectedChat && socket.emit("join chat",selectedChat._id)
     },[selectedChat])
     return (
         <div className="MyChat-render-container">
